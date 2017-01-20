@@ -3,7 +3,7 @@
 Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](http://enyrhine.users.cs.helsinki.fi/tsoha/)
-* [Linkki dokumentaatiooni](https://www.github.com)
+* [Linkki dokumentaatiooni](https://github.com/enyrhine/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 
 ## Fysiikkatreeniarkisto
 
