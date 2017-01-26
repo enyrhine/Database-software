@@ -4,6 +4,12 @@ Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](http://enyrhine.users.cs.helsinki.fi/tsoha/)
 * [Linkki dokumentaatiooni](https://github.com/enyrhine/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
+* [Linkki sovelluksen etusivulle](http://enyrhine.users.cs.helsinki.fi/tsoha/etusivu)
+* [Linkki sovelluksen kirjautumiseen](http://enyrhine.users.cs.helsinki.fi/tsoha/login)
+* [Linkki sovelluksen etusivulle](http://enyrhine.users.cs.helsinki.fi/tsoha/rekisterointi)
+* [Linkki sovelluksen etusivulle](http://enyrhine.users.cs.helsinki.fi/tsoha/treeni)
+* [Linkki sovelluksen etusivulle](http://enyrhine.users.cs.helsinki.fi/tsoha/liike)
+
 
 ## Fysiikkatreeniarkisto
 
