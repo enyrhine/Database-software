@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Fysiikkatreenit</h1>
+
+<!-- Tiedot tulee listana tähän -->
+
+
+
+<button class="btn btn-default" onclick="myFunction()">Nopeusvoima</button>
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+    document.getElementById("demo").innerHTML = "Crossfit";
+}
+</script>
+    
+
+
+<p> 
+    <button class="btn btn-default">Maksimivoima</button>
+</p>
+<p> 
+    <button class="btn btn-default">Kestovoima</button>
+</p>
+
+{% endblock %}

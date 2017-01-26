@@ -8,3 +8,8 @@
   max-width: 1200px;
   margin: 0px auto;
 }
+
+body{
+    background-color: rgba(187, 178, 196, 0.24);
+    color: rgb(177, 17, 33);
+}
