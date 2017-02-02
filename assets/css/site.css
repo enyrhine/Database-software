@@ -1,15 +1,75 @@
 #main-container{
-  max-width: 1200px;
-  padding: 10px 25px;
-  margin: 0px auto;
+    max-width: 1200px;
+    padding: 10px 25px;
+    margin: 0px auto;
 }
 
 .navbar .container-fluid{
-  max-width: 1200px;
-  margin: 0px auto;
+    max-width: 1200px;
+    margin: 0px auto;
 }
+
+
+
+body, html {
+    height: 100%;
+    color: #777;
+    line-height: 1.8;
+}
+
+.bgimg-1, .bgimg-2, .bgimg-3 {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+body {
+  
+    background-image: url('tsoha.jpg');
+    background-size: cover;
+}
+
+
+.w3-wide {letter-spacing: 10px;}
+.w3-hover-opacity {cursor: pointer;}
+
+
+
 
 body{
     background-color: rgba(187, 178, 196, 0.24);
-    color: rgb(177, 17, 33);
+    color: #fff;
 }
+h1 {
+    font-family: Lato;
+    
+}
+
+.taustabox,
+.login-box{
+    background-color: rgba(69, 62, 59, 0.5);
+    padding: 20px;
+}
+
+.login-text {
+    padding-left: 20px;
+}
+
+.elsa {
+    color: #fff;
+    text-align: center;
+    background-color: #333;
+    letter-spacing: 0.5em;
+    background-size: cover;
+    padding: 20px;
+}
+
+
+.etusivu .jumbotron {
+    background-color: rgba(187, 178, 196, 0);
+    padding-left: 0;
+    padding-right: 0;
+}
+
+

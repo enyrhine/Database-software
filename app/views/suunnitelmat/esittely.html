@@ -2,26 +2,22 @@
 {% block content %}
 <h1>Fysiikkatreenit</h1>
 
-<!-- Tiedot tulee listana tähän -->
-
-
-
-<button class="btn btn-default" onclick="myFunction()">Nopeusvoima</button>
+<button class="btn btn-default" onclick="myFunction()">Testi</button>
 <p id="demo"></p>
 
 <script>
-function myFunction() {
-    document.getElementById("demo").innerHTML = "Crossfit";
-}
+    function myFunction() {
+        document.getElementById("demo").innerHTML = "Crossfit";
+    }
 </script>
-    
 
+
+{% for voimalaji in voimalajit %}
 
 <p> 
-    <button class="btn btn-default">Maksimivoima</button>
-</p>
-<p> 
-    <button class="btn btn-default">Kestovoima</button>
-</p>
+    <a href="voimalajit/{{voimalaji.id}}" class="btn btn-default" role="button">{{voimalaji.name}}</a>
+</p> 
 
+{% endfor %}
 {% endblock %}
+

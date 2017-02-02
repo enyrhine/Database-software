@@ -31,12 +31,12 @@ voimalaji_id INTEGER REFERENCES Voimalaji(id)
 );
 
 CREATE TABLE Treeniliike (
-liike_id INTEGER REFERENCES Liike(id),
-treeni_id INTEGER REFERENCES Treeni(id)
+liike_id INTEGER REFERENCES Liike(id) NOT NULL,
+treeni_id INTEGER REFERENCES Treeni(id) NOT NULL
 );
 
 
 CREATE TABLE Voimatreeni (
-voimalaji_id INTEGER REFERENCES Voimalaji(id),
-treeni_id INTEGER REFERENCES Treeni(id)
+voimalaji_id INTEGER REFERENCES Voimalaji(id) NOT NULL,
+treeni_id INTEGER REFERENCES Treeni(id) NOT NULL
 );

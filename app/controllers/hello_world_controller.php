@@ -9,8 +9,10 @@
     }
 
     public static function sandbox(){
-      // Testaa koodiasi täällä
-      View::make('helloworld.html');
+      $crossfit = Treeni::findName(1);
+      $treenit = Treeni::all();
+      Kint::dump($treenit);
+      Kint::dump($crossfit);
     }
     
   }
