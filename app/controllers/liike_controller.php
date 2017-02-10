@@ -4,9 +4,9 @@
 
     
 
-    public static function index(){
-      // Testaa koodiasi täällä
-      View::make('suunnitelmat/liike.html');
+    public static function index() {
+        $liikkeet = Liike::all();
+        View::make('suunnitelmat/liike.html', array('liikkeet' => $liikkeet));
     }
     
   }

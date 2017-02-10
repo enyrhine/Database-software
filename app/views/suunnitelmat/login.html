@@ -6,18 +6,18 @@
     
         <div class ="col-md-3 login-box">
             <!-- Kaikki lomakkeen elementit form-tagin sisään -->
-            <form>
+            <form method="post" action="{{base_path}}/login">
                 <!-- Tekstikenttä käyttäjätunnukselle -->
 
                 <div class="form-group">
                     <label>Käyttäjätunnus</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" name="username" value="{{username}}">
                 </div>
 
                 <!-- Salasanakenttä salasanalle -->
                 <div class="form-group">
                     <label>Salasana</label>
-                    <input type="password" class="form-control">
+                    <input type="password" class="form-control" name="password">
                 </div>
 
                 <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>

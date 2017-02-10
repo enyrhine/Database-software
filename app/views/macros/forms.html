@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+    {% macro destroy_button(action) %}
+    <form method="post" action="{{action}}" style="display: inline-block;">
+        <button type="submit" class="btn btn-danger">Poista</button>
+    </form>
+    {% endmacro %}
+
+</body>
+</html>

@@ -12,6 +12,7 @@ Yleisiä linkkejä:
 * [Linkki sovelluksen liikesivulle](http://enyrhine.users.cs.helsinki.fi/tsoha/liike)
 * [Linkki sovelluksen treeninlisäys -sivulle ](http://enyrhine.users.cs.helsinki.fi/tsoha//treeni/new)
 
+Testikäyttäjä tunnus: Elsa, salasana: Elsa123
 
 
 ## Fysiikkatreeniarkisto

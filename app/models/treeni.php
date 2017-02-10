@@ -6,6 +6,7 @@ class Treeni extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_string_length');
     }
 
     public static function all() {
@@ -27,7 +28,7 @@ class Treeni extends BaseModel {
     }
 
     public static function findId($id) {
-        $query = DB::connection()->prepare('SELECT * FROM Treeni WHERE id = :id LIMIT1');
+        $query = DB::connection()->prepare('SELECT * FROM Treeni WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 
@@ -70,6 +71,20 @@ class Treeni extends BaseModel {
         // Haetaan kyselyn tuottama rivi, joka sisältää lisätyn rivin id-sarakkeen arvon
         $row = $query->fetch();
         // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
+        $this->id = $row['id'];
+    }
+    
+    public function update() {
+        $query = DB::connection()->prepare('UPDATE Treeni (name, kesto, soveltuvuus, kuvaus) SET (:name, :kesto, :soveltuvuus, :kuvaus) RETURNING id');
+        $query->execute(array('name' => $this->name, 'kesto' => $this->kesto, 'soveltuvuus' => $this->soveltuvuus, 'kuvaus' => $this->kuvaus));
+        $row = $query->fetch();
+        $this->id = $row['id'];
+    }
+    
+    public function delete() {
+        $query = DB::connection()->prepare('DELETE Treeni (name, kesto, soveltuvuus, kuvaus) VALUES (:name, :kesto, :soveltuvuus, :kuvaus) RETURNING id');
+        $query->execute(array('name' => $this->name, 'kesto' => $this->kesto, 'soveltuvuus' => $this->soveltuvuus, 'kuvaus' => $this->kuvaus));
+        $row = $query->fetch();
         $this->id = $row['id'];
     }
 
