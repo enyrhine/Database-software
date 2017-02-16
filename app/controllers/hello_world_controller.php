@@ -15,8 +15,15 @@ class HelloWorldController extends BaseController {
             'soveltuvuus' => 'kaikille',
             'kuvaus' => 'ihan ok treeni'
         ));
-        $errors = $testi->errors();
-        Kint::dump($errors);
+        $user = New Kayttaja(array(
+            'name' => 'Elsamoi',
+            'email' => 'elsa@joku.fi',
+            'password' => '12345',
+            'rooli' => 'ei ole'
+            
+        ));
+       
+        echo $user -> getName();
         
     }
 

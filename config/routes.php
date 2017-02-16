@@ -4,6 +4,7 @@ $routes->get('/', function() {
     EtusivuController::index();
 });
 
+
 $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
 });
@@ -20,17 +21,22 @@ $routes->post('/login', function(){
   UserController::handle_login();
 });
 
+$routes->post('/logout', function(){
+  UserController::logout();
+});
+
 $routes->get('/lisays', function() {
     AddController::index();
 });
 
-$routes->get('/treeni', function() {
+$routes->get('/treeni', function(){
     TreeniController::index();
 });
 
 $routes->post('/treeni', function() {
     TreeniController::store();
 });
+
 
 $routes->get('/treeni/new', function() {
     TreeniController::create();
@@ -59,9 +65,6 @@ $routes->get('/liike', function() {
     LiikeController::index();
 });
 
-$routes->get('/etusivu', function() {
-    EtusivuController::index();
-});
 
 $routes->get('/esittely', function() {
     VoimalajitController::index();
@@ -86,6 +89,11 @@ $routes->get('/voimalajit/:id', function($id) {
         VoimalajitController::index();
     }
 });
+
+$routes->get('/etusivu', function() {
+    EsittelyController::redirect();
+});
+
 
 
 
