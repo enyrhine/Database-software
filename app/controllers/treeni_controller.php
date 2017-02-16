@@ -70,20 +70,11 @@ class TreeniController extends BaseController {
 
     public static function destroy($id) {
         self::check_logged_in();
-        $params = $_POST;
 
-        $attributes = array(
-            'id' => $id,
-            'name' => $params['name'],
-            'kesto' => $params['kesto'],
-            'soveltuvuus' => $params['soveltuvuus'],
-            'kuvaus' => $params['kuvaus']
-        );
-
-        $treeni = new Treeni($attributes);
+        $treeni = new Treeni(array('id' => $id));
         $treeni->delete();
 
-        Redirect::to('/suunnitelmat/esittely', array('message' => 'Peli on poistettu onnistuneesti!'));
+        Redirect::to('/treenit', array('message' => 'Peli on poistettu onnistuneesti!'));
     }
 
 }

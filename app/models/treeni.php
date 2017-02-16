@@ -81,7 +81,7 @@ class Treeni extends BaseModel {
     
     public function delete() {
         $query = DB::connection()->prepare('DELETE FROM Treeni WHERE id = :id');
-        $query->execute(array('id' => $this->id,'name' => $this->name, 'kesto' => $this->kesto, 'soveltuvuus' => $this->soveltuvuus, 'kuvaus' => $this->kuvaus));
+        $query->execute(array('id' => $this->id));
     }
 
 }
