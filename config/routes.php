@@ -10,26 +10,18 @@ $routes->get('/hiekkalaatikko', function() {
 });
 
 $routes->get('/login', function() {
-    LoginController::index();
-});
-
-$routes->get('/login', function(){
     UserController::login();
 });
 
-$routes->post('/login', function(){
-  UserController::handle_login();
+$routes->post('/login', function() {
+    UserController::handle_login();
 });
 
-$routes->post('/logout', function(){
-  UserController::logout();
+$routes->post('/logout', function() {
+    UserController::logout();
 });
 
-$routes->get('/lisays', function() {
-    AddController::index();
-});
-
-$routes->get('/treeni', function(){
+$routes->get('/treeni', function() {
     TreeniController::index();
 });
 
@@ -75,7 +67,7 @@ $routes->get('/rekisterointi', function() {
 });
 
 $routes->get('/voimalajit', function() {
-    VoimalajitController::other();
+    VoimalajitController::index();
 });
 
 $routes->get('/voimalajit/:id', function($id) {
