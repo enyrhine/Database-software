@@ -5,7 +5,7 @@ class TreeniController extends BaseController {
     public static function index() {
         self::check_logged_in();
         $treenit = Treeni::all();
-        View::make('treeni/treeni.html', array('treenit' => $treenit));
+        View::make('treeni/treenit.html', array('treenit' => $treenit));
     }
 
     public static function show($id) {
@@ -70,8 +70,17 @@ class TreeniController extends BaseController {
 
     public static function destroy($id) {
         self::check_logged_in();
-        $treeni = Treeni::findId($id);
-        //new Treeni(array('id' => $id));
+        $params = $_POST;
+
+        $attributes = array(
+            'id' => $id,
+            'name' => $params['name'],
+            'kesto' => $params['kesto'],
+            'soveltuvuus' => $params['soveltuvuus'],
+            'kuvaus' => $params['kuvaus']
+        );
+
+        $treeni = new Treeni($attributes);
         $treeni->delete();
 
         Redirect::to('/suunnitelmat/esittely', array('message' => 'Peli on poistettu onnistuneesti!'));

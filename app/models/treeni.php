@@ -75,17 +75,13 @@ class Treeni extends BaseModel {
     }
     
     public function update() {
-        $query = DB::connection()->prepare('UPDATE Treeni (name, kesto, soveltuvuus, kuvaus) VALUES (:name, :kesto, :soveltuvuus, :kuvaus) RETURNING id');
-        $query->execute(array('name' => $this->name, 'kesto' => $this->kesto, 'soveltuvuus' => $this->soveltuvuus, 'kuvaus' => $this->kuvaus));
-        $row = $query->fetch();
-        $this->id = $row['id'];
+        $query = DB::connection()->prepare('UPDATE Treeni SET (name, kesto, soveltuvuus, kuvaus) = (:name, :kesto, :soveltuvuus, :kuvaus) WHERE id = :id');
+        $query->execute(array('id' => $this->id, 'name' => $this->name, 'kesto' => $this->kesto, 'soveltuvuus' => $this->soveltuvuus, 'kuvaus' => $this->kuvaus));
     }
     
     public function delete() {
         $query = DB::connection()->prepare('DELETE FROM Treeni WHERE id = :id');
-        $query->execute(array('name' => $this->name, 'kesto' => $this->kesto, 'soveltuvuus' => $this->soveltuvuus, 'kuvaus' => $this->kuvaus));
-        $row = $query->fetch();
-        $this->id = $row['id'];
+        $query->execute(array('id' => $this->id,'name' => $this->name, 'kesto' => $this->kesto, 'soveltuvuus' => $this->soveltuvuus, 'kuvaus' => $this->kuvaus));
     }
 
 }

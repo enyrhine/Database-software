@@ -16,7 +16,7 @@
     </div>
     {% endif %}
 
-    <form method="post" action="{{base_path}}/treeni/{{treeni.id}}">
+    <form method="post" action="{{base_path}}/treeni/{{attributes.id}}/edit">
         <div class="form-group">
             <label>Nimi</label>
             <input type="text" name="name" class="form-control" value="{{attributes.name}}">
@@ -41,6 +41,6 @@
             <button type="submit" class="btn btn-primary">Lisää</button>
         </div>
     </form>
-    {{forms.destroy_button("#{base_path}/treeni/#{treeni.id}/destroy")}}
+    {{forms.destroy_button("#{base_path}/treeni/#{attributes.id}/destroy")}}
 </div>
 {% endblock %}

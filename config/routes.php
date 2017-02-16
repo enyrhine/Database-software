@@ -21,6 +21,10 @@ $routes->post('/logout', function() {
     UserController::logout();
 });
 
+$routes->get('/treenit', function() {
+    TreeniController::index();
+});
+
 $routes->get('/treeni', function() {
     TreeniController::index();
 });

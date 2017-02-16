@@ -1,0 +1,29 @@
+{% import "macros/forms.html" as forms %}
+{% extends "base.html" %}
+{% block content %}
+<div class="container taustabox">
+
+    <h1>Treenit: </h1>
+    <h1> </h1> 
+    <table>
+        {% for treeni in treenit %}
+        <tr>
+            
+        <button class="btn btn-default"><a href="{{base_path}}/treeni/{{treeni.id}}">{{treeni.name}}</button>
+        
+        <p> </p>
+
+        </tr>
+        {% endfor %}
+
+    </table>
+   
+    <h1> </h1>
+    <p>
+        <a href="{{base_path}}/treeni/new" class="btn btn-default">Lisää uusi treeni</a>
+    </p>
+    
+
+
+</div>
+{% endblock %}
