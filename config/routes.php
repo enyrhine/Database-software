@@ -87,7 +87,7 @@ $routes->get('/voimalajit/:id', function($id) {
 });
 
 $routes->get('/etusivu', function() {
-    EsittelyController::redirect();
+    EtusivuController::index();
 });
 
 
