@@ -1,0 +1,29 @@
+{% import "macros/forms.html" as forms %}
+{% extends "base.html" %}
+{% block content %}
+<div class="container taustabox">
+
+    <h1>Liikkeet: </h1>
+    <h1> </h1> 
+    <table>
+        {% for liike in liikkeet %}
+        <tr>
+            
+        <button class="btn btn-default"><a href="{{base_path}}/liike/{{liike.id}}">{{liike.name}}</button>
+        
+        <p> </p>
+
+        </tr>
+        {% endfor %}
+
+    </table>
+   
+    <h1> </h1>
+    <p>
+        <a href="{{base_path}}/liike/new" class="btn btn-default">Lisää uusi liike</a>
+    </p>
+    
+
+
+</div>
+{% endblock %}

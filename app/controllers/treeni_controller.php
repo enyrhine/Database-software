@@ -77,4 +77,24 @@ class TreeniController extends BaseController {
         Redirect::to('/treenit', array('message' => 'Peli on poistettu onnistuneesti!'));
     }
 
+    public static function search() {
+        self::check_logged_in();
+        View::make('suunnitelmat/search.html');
+    }
+
+    public static function searchName() {
+        self::check_logged_in();   
+        //$search = htmlspecialchars($_POST["search"]);
+        $search = $_POST["search"];
+        $treenit = Treeni::findName($search);
+        Kint::dump($treenit);
+
+        $message = "Sopivia hakuja ei löytynyt.";
+        if ($treenit == null) {
+            View::make('suunnitelmat/search.html', array('treenit' => $treenit, 'message' => $message));
+        } else {
+            View::make('suunnitelmat/search.html', array('treenit' => $treenit, 'message' => 'Löytyi'));
+        }
+    }
+
 }

@@ -38,6 +38,14 @@ $routes->get('/treeni/new', function() {
     TreeniController::create();
 });
 
+$routes->get('/search', function() {
+    TreeniController::search();
+});
+
+$routes->post('/search', function() {
+    TreeniController::searchName();
+});
+
 $routes->get('/treeni/:id', function($id) {
     if ($id > 0) {
         TreeniController::show($id);

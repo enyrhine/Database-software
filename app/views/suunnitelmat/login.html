@@ -3,6 +3,9 @@
 
     <h1 class="login-text">Kirjaudu sisään</h1>
 
+        {% if error %}
+        <p style="color:red">{{error}}</p>
+        {% endif %}
     
         <div class ="col-md-3 login-box">
             <!-- Kaikki lomakkeen elementit form-tagin sisään -->

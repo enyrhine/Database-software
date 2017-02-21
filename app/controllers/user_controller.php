@@ -23,5 +23,7 @@ class UserController extends BaseController {
         $_SESSION['user'] = null;
         Redirect::to('/', array('message' => 'Olet kirjautunut ulos!'));
     }
+    
+    
 
 }

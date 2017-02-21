@@ -43,5 +43,11 @@ class User extends BaseModel {
         }
         return null;
     }
+    
+    public function validate_name() {
+        if (parent::validate_string_length($this->name, 2, 50) == false) {
+            return 'Nimi tulee olla 2-50 kirjainta pitkä)';
+        }
+    }
 
 }

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Hae treeniä:</h2>
+
+<label> </label>
+
+
+<form method="post" action="{{base_path}}/search">
+    <div class="form-group">
+        <input name="search" class="form-control" placeholder="Hae treeniä" type="text">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Hae</button>  
+    </div>
+</form>
+
+<div class="form-group">
+    {% for treeni in treenit %}
+    <a class="btn btn-primary btn-sm" href="{{base_path}}/treeni/{{treeni.id}}">{{treeni.name}}</a>
+    {% endfor %}
+</div>
+{% endblock %}

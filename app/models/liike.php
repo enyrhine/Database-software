@@ -1,8 +1,8 @@
 <?php
 
-class Treeni extends BaseModel {
+class Liike extends BaseModel {
 
-    public $id, $name, $kesto, $soveltuvuus, $kuvaus;
+    public $id, $name, $soveltuvuus, $kuvaus, $voimalaji_id;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -10,26 +10,45 @@ class Treeni extends BaseModel {
     }
 
     public static function all() {
-        $query = DB::connection()->prepare('SELECT * FROM Treeni');
+        $query = DB::connection()->prepare('SELECT * FROM Liike');
         $query->execute();
         $rows = $query->fetchAll();
-        $treenit = array();
+        $liikkeet = array();
 
         foreach ($rows as $row) {
-            $treenit[] = new Treeni(array(
+            $liikkeet[] = new Treeni(array(
                 'id' => $row['id'],
                 'name' => $row['name'],
-                'kesto' => $row['kesto'],
                 'soveltuvuus' => $row['soveltuvuus'],
-                'kuvaus' => $row['kuvaus']
+                'kuvaus' => $row['kuvaus'],
+                'voimalaji_id' => $row['voimalaji_id']
             ));
         }
-        return $treenit;
+        return $liikkeet;
+    }
+    
+    public static function findId($id) {
+        $query = DB::connection()->prepare('SELECT * FROM Liike WHERE id = :id LIMIT 1');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+
+        if ($row) {
+            $liike = new Liike(array(
+                'id' => $row['id'],
+                'name' => $row['name'],
+                'soveltuvuus' => $row['soveltuvuus'],
+                'kuvaus' => $row['kuvaus'],
+                'voimalaji_id' => $row['voimalaji_id']
+            ));
+            return $liike;
+        }
+        return null;
     }
 
-    public static function findId($id) {
-        $query = DB::connection()->prepare('SELECT * FROM Treeni WHERE id = :id LIMIT 1');
-        $query->execute(array('id' => $id));
+//jatka tästä -> ei vielä muokattu
+    public static function findName($name) {
+        $query = DB::connection()->prepare('SELECT * FROM Treeni WHERE name = :name');
+        $query->execute(array('name' => $name));
         $row = $query->fetch();
 
         if ($row) {
@@ -43,53 +62,6 @@ class Treeni extends BaseModel {
             return $treeni;
         }
         return null;
-    }
-    
-    public function validate_name() {
-        if (parent::validate_string_length($this->name, 2, 50) == false) {
-            return 'Nimi tulee olla 2-50 kirjainta pitkä)';
-        }
-    }
-    
-    public static function getName() {
-        $query = DB::connection()->prepare('SELECT * FROM Treeni ORDER BY random() LIMIT 1');
-        $query->execute();
-        $row = $query->fetch();
-        if ($row) {
-            $name = new Treeni(array(
-                'id' => $row['id'],
-                'name' => $row['name'],
-                'kesto' => $row['kesto'],
-                'soveltuvuus' => $row['soveltuvuus'],
-                'kuvaus' => $row['kuvaus']
-            ));
-            return $row['name'];
-        }
-        return null;
-    }
-    
-
-    public static function findName($name) {
-        $name = '%' . strtolower($name) . '%';
-        $query = DB::connection()->prepare('SELECT * FROM Treeni WHERE LOWER(name) LIKE :name');
-        $query->execute(array('name' => $name));
-        $rows = $query->fetchAll();
-        $treenit = array();
-        if ($rows == null) {
-            return NULL;
-        }
-        
-        foreach ($rows as $row) {
-            $treenit[] = new Treeni(array(
-                'id' => $row['id'],
-                'name' => $row['name'],
-                'kesto' => $row['kesto'],
-                'soveltuvuus' => $row['soveltuvuus'],
-                'kuvaus' => $row['kuvaus']
-            ));
-            
-        }
-        return $treenit;
     }
 
     public function save() {
