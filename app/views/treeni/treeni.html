@@ -16,13 +16,13 @@
     </ul>
     <!-- Kuvaus tulee tähän -->
 
-    <h4>Treeniin liittyvät liikkeet: </h4>
+    <h4>Treenin voimalajit: </h4>
     <h4> </h4> 
     <table>
-        {% for treeni in treenit %}
+        {% for voimalaji in voimalajit %}
         <tr>
             
-        <button class="btn btn-default"><a href="{{base_path}}/treeni/{{treeni.id}}">{{treeni.name}}</button>
+        <button class="btn btn-default"><a href="{{base_path}}/voimalajit/{{voimalaji.id}}">{{voimalaji.name}}</button>
         
         <p> </p>
 

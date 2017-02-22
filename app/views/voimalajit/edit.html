@@ -4,7 +4,7 @@
 
 
 <div class="container taustabox">
-    <h1>Muokkaa treeniä</h1>
+    <h1>Muokkaa voimalajia</h1>
 
     {% if errors %}
     <div class="alert alert-danger">
@@ -16,36 +16,17 @@
     </div>
     {% endif %}
 
-    <form method="post" action="{{base_path}}/treeni/{{attributes.id}}/edit">
+    <form method="post" action="{{base_path}}/voimalajit/{{attributes.id}}/edit">
         <div class="form-group">
             <label>Nimi</label>
             <input type="text" name="name" class="form-control" value="{{attributes.name}}">
         </div>
 
-        <div class="form-group">
-            <label>Kesto</label>
-            <input type="text" name="kesto" class="form-control" value="{{attributes.kesto}}">
-        </div>
-
-        <div class="form-group">
-            <label>Soveltuvuus</label>
-            <input name="soveltuvuus" class="form-control" value="{{attributes.soveltuvuus}}">
-        </div>
 
         <div class="form-group">
             <label>Kuvaus</label>
             <textarea name="kuvaus" class="form-control">{{attributes.kuvaus}}</textarea>
         </div>
-        
-        <div class="form-group">
-            <label>Valitse treenin voimalajit: </label>
-            {% for voimalaji in voimalajit %}
-            <div class="checkbox">
-                <label> <input type="checkbox" name="voimalajit[]" value="{{voimalaji.id}}"> {{voimalaji.name}}</label>
-            </div>
-            {% endfor %}
-        </div>
-       
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Lisää</button>

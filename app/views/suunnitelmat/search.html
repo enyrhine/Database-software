@@ -17,7 +17,8 @@
 
 <div class="form-group">
     {% for treeni in treenit %}
-    <a class="btn btn-primary btn-sm" href="{{base_path}}/treeni/{{treeni.id}}">{{treeni.name}}</a>
+    <a class="btn btn-default" href="{{base_path}}/treeni/{{treeni.id}}">{{treeni.name}}</a>
+    <p> </p>
     {% endfor %}
 </div>
 {% endblock %}

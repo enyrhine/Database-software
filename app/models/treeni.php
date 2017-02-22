@@ -44,30 +44,12 @@ class Treeni extends BaseModel {
         }
         return null;
     }
-    
+
     public function validate_name() {
         if (parent::validate_string_length($this->name, 2, 50) == false) {
             return 'Nimi tulee olla 2-50 kirjainta pitkä)';
         }
     }
-    
-    public static function getName() {
-        $query = DB::connection()->prepare('SELECT * FROM Treeni ORDER BY random() LIMIT 1');
-        $query->execute();
-        $row = $query->fetch();
-        if ($row) {
-            $name = new Treeni(array(
-                'id' => $row['id'],
-                'name' => $row['name'],
-                'kesto' => $row['kesto'],
-                'soveltuvuus' => $row['soveltuvuus'],
-                'kuvaus' => $row['kuvaus']
-            ));
-            return $row['name'];
-        }
-        return null;
-    }
-    
 
     public static function findName($name) {
         $name = '%' . strtolower($name) . '%';
@@ -78,7 +60,7 @@ class Treeni extends BaseModel {
         if ($rows == null) {
             return NULL;
         }
-        
+
         foreach ($rows as $row) {
             $treenit[] = new Treeni(array(
                 'id' => $row['id'],
@@ -87,7 +69,6 @@ class Treeni extends BaseModel {
                 'soveltuvuus' => $row['soveltuvuus'],
                 'kuvaus' => $row['kuvaus']
             ));
-            
         }
         return $treenit;
     }
@@ -102,15 +83,54 @@ class Treeni extends BaseModel {
         // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
         $this->id = $row['id'];
     }
-    
-    public function update() {
-        $query = DB::connection()->prepare('UPDATE Treeni SET (name, kesto, soveltuvuus, kuvaus) = (:name, :kesto, :soveltuvuus, :kuvaus) WHERE id = :id');
-        $query->execute(array('id' => $this->id, 'name' => $this->name, 'kesto' => $this->kesto, 'soveltuvuus' => $this->soveltuvuus, 'kuvaus' => $this->kuvaus));
+
+    public function update($voimalaji_idt) {
+        $this->deleteVoimalaji();
+        foreach ($voimalaji_idt as $voimalaji_id) {
+            $this->addVoimalaji($voimalaji_id);
+
+            //$query = DB::connection()->prepare('UPDATE VoimaTreeni SET (voimalaji_id, treeni_id) = (:voimalaji_id, :treeni_id) WHERE treeni_id = :id');
+            //$query->execute(array('voimalaji_id' => $voimalaji_id, 'treeni_id' => $this->id)); 
+        }
+
+        $query1 = DB::connection()->prepare('UPDATE Treeni SET (name, kesto, soveltuvuus, kuvaus) = (:name, :kesto, :soveltuvuus, :kuvaus) WHERE id = :id');
+        $query1->execute(array('id' => $this->id, 'name' => $this->name, 'kesto' => $this->kesto, 'soveltuvuus' => $this->soveltuvuus, 'kuvaus' => $this->kuvaus));
     }
-    
+
     public function delete() {
-        $query = DB::connection()->prepare('DELETE FROM Treeni WHERE id = :id');
+        $query2 = DB::connection()->prepare('DELETE FROM VoimaTreeni WHERE treeni_id = :id');
+        $query2->execute(array('id' => $this->id));
+        $query1 = DB::connection()->prepare('DELETE FROM Treeni WHERE id = :id');
+        $query1->execute(array('id' => $this->id));
+
+        //$query3 = DB::connection()->prepare('DELETE FROM Voimalaji WHERE id = :id');
+        //$query3->execute(array('id' => $this->id));
+    }
+
+    public function deleteVoimalaji() {
+        $query2 = DB::connection()->prepare('DELETE FROM VoimaTreeni WHERE treeni_id = :id');
+        $query2->execute(array('id' => $this->id));
+    }
+
+    public function addVoimalaji($voimalaji_id) {
+        $query = DB::connection()->prepare('INSERT INTO VoimaTreeni (voimalaji_id, treeni_id) VALUES (:voimalaji_id, :treeni_id)');
+        $query->execute(array('voimalaji_id' => $voimalaji_id, 'treeni_id' => $this->id));
+    }
+
+    public function getVoimalajit() {
+        $query = DB::connection()->prepare('SELECT * FROM VoimaTreeni INNER JOIN Voimalaji ON VoimaTreeni.voimalaji_id = Voimalaji.id WHERE VoimaTreeni.treeni_id = :id');
         $query->execute(array('id' => $this->id));
+        $rows = $query->fetchAll();
+        $voimalajit = array();
+
+        foreach ($rows as $row) {
+            $voimalajit[] = new Voimalaji(array(
+                'id' => $row['id'],
+                'name' => $row['name'],
+                'kuvaus' => $row['kuvaus']
+            ));
+        }
+        return $voimalajit;
     }
 
 }

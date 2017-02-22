@@ -19,7 +19,7 @@ kuvaus varchar(500)
 CREATE TABLE Voimalaji (
 id SERIAL PRIMARY KEY,
 name varchar(50) NOT NULL,
-kuvaus varchar(500) 
+kuvaus varchar(500)
 );
 
 CREATE TABLE Liike (
@@ -31,12 +31,12 @@ voimalaji_id INTEGER REFERENCES Voimalaji(id)
 );
 
 CREATE TABLE Treeniliike (
-liike_id INTEGER REFERENCES Liike(id) NOT NULL,
-treeni_id INTEGER REFERENCES Treeni(id) NOT NULL
+liike_id INTEGER KEY REFERENCES Liike(id) NOT NULL,
+treeni_id INTEGER KEY REFERENCES Treeni(id) NOT NULL
 );
 
 
 CREATE TABLE Voimatreeni (
-voimalaji_id INTEGER REFERENCES Voimalaji(id) NOT NULL,
-treeni_id INTEGER REFERENCES Treeni(id) NOT NULL
+voimalaji_id INTEGER KEY REFERENCES Voimalaji(id) NOT NULL,
+treeni_id INTEGER KEY REFERENCES Treeni(id) NOT NULL
 );

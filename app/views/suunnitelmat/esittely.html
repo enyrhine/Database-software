@@ -1,18 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-
-<h1 class="col-md-3 login-box text-center">FYSIIKKATREENIT</h1>
-<div class ="col-md-3 login-box text-center">
-
-
-    <button class="btn btn-default" onclick="myFunction()">Testi</button>
-    <p id="demo"></p>
-
-    <script>
-        function myFunction() {
-            document.getElementById("demo").innerHTML = "Crossfit";
-        }
-    </script>
+<div class ="col-md-12 login-box text-center">
+<h1>FYSIIKKATREENIT</h1>
+</div>
+<div class ="col-md-12 taustabox text-center">
 
 
     {% for voimalaji in voimalajit %}

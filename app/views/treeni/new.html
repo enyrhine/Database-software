@@ -35,6 +35,15 @@
             <label>Kuvaus</label>
             <textarea name="kuvaus" class="form-control">{{attributes.kuvaus}}</textarea>
         </div>
+        
+        <div class="form-group">
+            <label>Valitse treenin voimalajit: </label>
+            {% for voimalaji in voimalajit %}
+            <div class="checkbox">
+                <label> <input type="checkbox" name="voimalajit[]" value="{{voimalaji.id}}"> {{voimalaji.name}}</label>
+            </div>
+            {% endfor %}
+        </div>
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Lisää</button>

@@ -71,7 +71,7 @@ $routes->get('/liike', function() {
 
 
 $routes->get('/esittely', function() {
-    VoimalajitController::index();
+    VoimalajiController::index();
 });
 
 $routes->get('/rekisterointi', function() {
@@ -79,19 +79,19 @@ $routes->get('/rekisterointi', function() {
 });
 
 $routes->get('/voimalajit', function() {
-    VoimalajitController::index();
+    VoimalajiController::index();
 });
 
 $routes->get('/voimalajit/:id', function($id) {
-    if ($id == 1) {
-        VoimalajitController::nopeus($id);
-    } elseif ($id == 2) {
-        VoimalajitController::kesto($id);
-    } elseif ($id == 3) {
-        VoimalajitController::maksi($id);
-    } else {
-        VoimalajitController::index();
-    }
+        VoimalajiController::show($id);
+    
+});
+
+$routes->get('/voimalajit/:id/edit', function($id) {
+    TreeniController::edit($id);
+});
+$routes->post('/voimalajit/:id/edit', function($id) {
+    TreeniController::update($id);
 });
 
 $routes->get('/etusivu', function() {

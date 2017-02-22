@@ -1,6 +1,6 @@
 <?php
 
-class VoimalajitController extends BaseController {
+class VoimalajiController extends BaseController {
 
     public static function index() {
         self::check_logged_in();
@@ -14,19 +14,13 @@ class VoimalajitController extends BaseController {
         View::make('suunnitelmat/voimalajit.html');
     }
 
-    public static function nopeus($id) {
+     public static function show($id) {
         self::check_logged_in();
-        View::make('voimalajit/nopeusvoima.html');
+        $voimalaji = Voimalaji::findId($id);
+        $treenit = $voimalaji->getTreenit();
+        View::make('voimalajit/voimalaji.html', array('voimalaji' => $voimalaji, 'treenit' => $treenit));
     }
 
-    public static function kesto($id) {
-        self::check_logged_in();
-        View::make('voimalajit/kestovoima.html');
-    }
-
-    public static function maksi($id) {
-        self::check_logged_in();
-        View::make('voimalajit/maksimivoima.html');
-    }
+    
 
 }

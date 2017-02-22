@@ -11,12 +11,18 @@ class TreeniController extends BaseController {
     public static function show($id) {
         self::check_logged_in();
         $treeni = Treeni::findId($id);
-        View::make('treeni/treeni.html', array('treeni' => $treeni));
+        if ($treeni != null) {
+            $voimalajit = $treeni->getVoimalajit();
+        }
+        View::make('treeni/treeni.html', array('treeni' => $treeni, 'voimalajit' => $voimalajit));
     }
 
     public static function create() {
         self::check_logged_in();
-        View::make('treeni/new.html');
+        $voimalajit = Voimalaji::all();
+        
+        //Kint::dump($voimalajit);
+        View::make('treeni/new.html', array('voimalajit' => $voimalajit));
     }
 
     public static function store() {
@@ -28,12 +34,17 @@ class TreeniController extends BaseController {
             'soveltuvuus' => $params['soveltuvuus'],
             'kuvaus' => $params['kuvaus']
         );
-
         $treeni = new Treeni($attributes);
         $errors = $treeni->errors();
 
         if (count($errors) == 0) {
             $treeni->save();
+            $voimalaji_idt = $_POST["voimalajit"];
+            $N = count($voimalaji_idt);
+            for ($i = 0; $i < $N; $i++) {
+                $v = $voimalaji_idt[$i];
+                $treeni->addVoimalaji($v);
+            }
             Redirect::to('/treeni/' . $treeni->id, array('message' => 'Treeni on lisätty arkistoon!'));
         } else {
             View::make('treeni/new.html', array('errors' => $errors, 'params' => $params));
@@ -43,7 +54,8 @@ class TreeniController extends BaseController {
     public static function edit($id) {
         self::check_logged_in();
         $treeni = Treeni::findId($id);
-        View::make('treeni/edit.html', array('attributes' => $treeni));
+        $voimalajit = Voimalaji::all();
+        View::make('treeni/edit.html', array('attributes' => $treeni, 'voimalajit' => $voimalajit));
     }
 
     public static function update($id) {
@@ -59,11 +71,13 @@ class TreeniController extends BaseController {
         );
 
         $treeni = new Treeni($attributes);
+        $voimalaji_idt = $_POST["voimalajit"];
+        //$voimalaji_deletet = $_POST["voimalajitD"];
         //$errors = $treeni->errors();
         //if (count($errors) > 0) {
         //View::make('treeni/edit.html', array('errors' => $errors, 'attributes' => $attributes));
         //} else {
-        $treeni->update();
+        $treeni->update($voimalaji_idt);
         Redirect::to('/treeni/' . $treeni->id, array('message' => 'Treeniä on muokattu onnistuneesti!'));
         //}
     }
@@ -83,11 +97,11 @@ class TreeniController extends BaseController {
     }
 
     public static function searchName() {
-        self::check_logged_in();   
+        self::check_logged_in();
         //$search = htmlspecialchars($_POST["search"]);
         $search = $_POST["search"];
         $treenit = Treeni::findName($search);
-        Kint::dump($treenit);
+        //Kint::dump($treenit);
 
         $message = "Sopivia hakuja ei löytynyt.";
         if ($treenit == null) {

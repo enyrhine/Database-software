@@ -84,5 +84,9 @@ class Liike extends BaseModel {
         $query = DB::connection()->prepare('DELETE FROM Treeni WHERE id = :id');
         $query->execute(array('id' => $this->id));
     }
+    
+    public function getVoimalaji() {
+        
+    }
 
 }

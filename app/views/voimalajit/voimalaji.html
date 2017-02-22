@@ -2,28 +2,24 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container taustabox">  
-    <h1>Nopeusvoima</h1>
-    <!-- Painikkeet tähän -->
-    <p>
-        <a href="{{base_path}}/treeni/edit" class="btn btn-default">Muokkaa</a> <a href="{{base_path}}/treeni/new" class="btn btn-default">Lisää uusi treeni</a> 
+    <h1>{{voimalaji.name}}</h1><a href="{{base_path}}/voimalaji/edit" class="btn btn-default" >Muokkaa</a> 
+    
+    
+    
+    <p style="font-size:110%;">
+        <br>
+        {{voimalaji.kuvaus}}
     </p>
-    <!-- Tiedot tulee listana tähän -->
-
-    <!-- Kuvaus tulee tähän -->
-    <p>
-        Kuvaus...
-    </p>
+    <br>
     Voimalajiin liittyvät treenit: 
     <h4> </h4> 
-    <button class="btn btn-default"><a href="{{base_path}}/treeni/1">Crossfit</button>
     <table>
         {% for treeni in treenit %}
         <tr>
 
         <button class="btn btn-default"><a href="{{base_path}}/treeni/{{treeni.id}}">{{treeni.name}}</button>
-
+        <br>
         <p> </p>
-
         </tr>
         {% endfor %}
     </table>
