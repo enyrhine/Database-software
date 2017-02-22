@@ -18,7 +18,14 @@ class VoimalajiController extends BaseController {
         self::check_logged_in();
         $voimalaji = Voimalaji::findId($id);
         $treenit = $voimalaji->getTreenit();
-        View::make('voimalajit/voimalaji.html', array('voimalaji' => $voimalaji, 'treenit' => $treenit));
+        View::make('voimalaji/voimalaji.html', array('voimalaji' => $voimalaji, 'treenit' => $treenit));
+    }
+    
+    public static function edit($id) {
+        self::check_logged_in();
+        $voimalaji = Voimalaji::findId($id);
+        $treenit = Treeni::all();
+        View::make('voimalaji/edit.html', array('attributes' => $voimalaji, 'treenit' => $treenit));
     }
 
     

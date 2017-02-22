@@ -2,10 +2,10 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container taustabox">
-    <h1>{{treeni.name}}</h1>
+    <h1><span>{{treeni.name}} <a href="{{base_path}}/treeni/{{treeni.id}}/edit" class="btn btn-link ">Muokkaa</a> </span></h1>
     <!-- Painikkeet tähän -->
     <p>
-        <a href="{{base_path}}/treeni/{{treeni.id}}/edit" class="btn btn-default">Muokkaa</a>
+        
     </p>
     <!-- Tiedot tulee listana tähän -->
     <ul>
@@ -22,7 +22,7 @@
         {% for voimalaji in voimalajit %}
         <tr>
             
-        <button class="btn btn-default"><a href="{{base_path}}/voimalajit/{{voimalaji.id}}">{{voimalaji.name}}</button>
+        <button class="btn btn-default"><a href="{{base_path}}/voimalaji/{{voimalaji.id}}">{{voimalaji.name}}</button>
         
         <p> </p>
 

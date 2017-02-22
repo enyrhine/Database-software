@@ -78,20 +78,20 @@ $routes->get('/rekisterointi', function() {
     RekisterointiController::index();
 });
 
-$routes->get('/voimalajit', function() {
+$routes->get('/voimalaji', function() {
     VoimalajiController::index();
 });
 
-$routes->get('/voimalajit/:id', function($id) {
+$routes->get('/voimalaji/:id', function($id) {
         VoimalajiController::show($id);
     
 });
 
-$routes->get('/voimalajit/:id/edit', function($id) {
-    TreeniController::edit($id);
+$routes->get('/voimalaji/:id/edit', function($id) {
+    VoimalajiController::edit($id);
 });
-$routes->post('/voimalajit/:id/edit', function($id) {
-    TreeniController::update($id);
+$routes->post('/voimalaji/:id/edit', function($id) {
+    VoimalajiController::update($id);
 });
 
 $routes->get('/etusivu', function() {

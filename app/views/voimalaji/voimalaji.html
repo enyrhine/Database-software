@@ -2,8 +2,10 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container taustabox">  
-    <h1>{{voimalaji.name}}</h1><a href="{{base_path}}/voimalaji/edit" class="btn btn-default" >Muokkaa</a> 
-    
+   
+    <h1> <span>{{voimalaji.name}}
+    <a href="{{base_path}}/voimalaji/{{voimalaji.id}}/edit" class="btn btn-link" >Muokkaa</a> 
+    </span></h1>
     
     
     <p style="font-size:110%;">
