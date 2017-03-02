@@ -3,7 +3,8 @@
 {% block content %}
 <div class="container taustabox">
 
-    <h1>Treenit: </h1>
+    <h1><span>Treenit:  <a href="{{base_path}}/treeni/new" class="btn btn-link btn-lg">Lisää uusi treeni</a></span></h1>
+     
     <h1> </h1> 
     <table>
         {% for treeni in treenit %}
@@ -18,12 +19,6 @@
 
     </table>
    
-    <h1> </h1>
-    <p>
-        <a href="{{base_path}}/treeni/new" class="btn btn-default">Lisää uusi treeni</a>
-    </p>
     
-
-
 </div>
 {% endblock %}

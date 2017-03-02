@@ -25,6 +25,19 @@ class User extends BaseModel {
         }
         return null;
     }
+    
+    public static function checkRooli($id) {
+		$query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE id = :id LIMIT 1');
+		$query->execute(array('id'=>$id));
+		$row = $query->fetch();
+		if($row) {
+			$rooli = new User(array(
+				'rooli' => $row['rooli']
+				));
+			return $rooli;
+		}
+		return null;
+	}
 
     public static function find($id) {
         $query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE id = :id LIMIT 1');
@@ -44,10 +57,20 @@ class User extends BaseModel {
         return null;
     }
     
+    public function update($id) {
+        $query = DB::connection()->prepare('UPDATE Kayttaja SET (name, email, password, rooli) = (:name, :email, :password, :rooli) WHERE id = :id');
+        $query->execute(array('id' => $this->id, 'name' => $this->name, 'email' => $this->email, 'password' => $this->password, 'rooli' => $this->rooli));
+    }
+    
     public function validate_name() {
-        if (parent::validate_string_length($this->name, 2, 50) == false) {
-            return 'Nimi tulee olla 2-50 kirjainta pitkä)';
+        $errors = array();
+        if ($this->name == '' || $this->name == null) {
+            $errors[] = 'Nimi ei saa olla tyhjä!';
         }
+        if (strlen($this->name) < 3) {
+            $errors[] = 'Nimen tulee olla vähintään kolme merkkiä!';
+        }
+        return $errors;
     }
 
 }

@@ -5,11 +5,20 @@
     <h1><span>{{treeni.name}} <a href="{{base_path}}/treeni/{{treeni.id}}/edit" class="btn btn-link ">Muokkaa</a> </span></h1>
     <!-- Painikkeet tähän -->
     <p>
-        
+
     </p>
-    <!-- Tiedot tulee listana tähän -->
     <ul>
-        <li><strong>Soveltuvuus:</strong> {{treeni.soveltuvuus}}</li>
+        <li><strong>Soveltuvuus:</strong> 
+            {% for a in soveltuvuus %}
+
+            {{a}}
+            {% if soveltuvuus %}
+            ,
+            {% endif %}
+
+
+            {% endfor %}
+        </li>
         <li><strong>Kesto:</strong> {{treeni.kesto}}</li>
         <li><strong>Kuvaus:</strong> {{treeni.kuvaus}}</li>
 
@@ -21,9 +30,9 @@
     <table>
         {% for voimalaji in voimalajit %}
         <tr>
-            
-        <button class="btn btn-default"><a href="{{base_path}}/voimalaji/{{voimalaji.id}}">{{voimalaji.name}}</button>
-        
+
+        <button class="btn btn-default"><a name="voimalajit" href="{{base_path}}/voimalaji/{{voimalaji.id}}">{{voimalaji.name}}</button>
+
         <p> </p>
 
         </tr>

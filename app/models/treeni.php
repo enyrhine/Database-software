@@ -7,6 +7,7 @@ class Treeni extends BaseModel {
     public function __construct($attributes) {
         parent::__construct($attributes);
         $this->validators = array('validate_string_length');
+        //$this->soveltuvuus = array();
     }
 
     public static function all() {
@@ -45,11 +46,28 @@ class Treeni extends BaseModel {
         return null;
     }
 
+    
     public function validate_name() {
-        if (parent::validate_string_length($this->name, 2, 50) == false) {
-            return 'Nimi tulee olla 2-50 kirjainta pitkä)';
+        $errors = array();
+        if ($this->name == '' || $this->name == null) {
+            $errors[] = 'Nimi ei saa olla tyhjä!';
         }
+        if (strlen($this->name) < 3) {
+            $errors[] = 'Nimen tulee olla vähintään kolme merkkiä!';
+        }
+        return $errors;
     }
+    
+    
+    
+    public function validate_soveltuvuus() {
+        $errors = array();
+        if ($this->soveltuvuus == null) {
+            $errors[] = 'Soveltuvuus ei saa olla tyhjä!';
+        }
+        return $errors;
+    }
+    
 
     public static function findName($name) {
         $name = '%' . strtolower($name) . '%';
@@ -77,7 +95,7 @@ class Treeni extends BaseModel {
         // Lisätään RETURNING id tietokantakyselymme loppuun, niin saamme lisätyn rivin id-sarakkeen arvon
         $query = DB::connection()->prepare('INSERT INTO Treeni (name, kesto, soveltuvuus, kuvaus) VALUES (:name, :kesto, :soveltuvuus, :kuvaus) RETURNING id');
         // Muistathan, että olion attribuuttiin pääse syntaksilla $this->attribuutin_nimi
-        $query->execute(array('name' => $this->name, 'kesto' => $this->kesto, 'soveltuvuus' => $this->soveltuvuus, 'kuvaus' => $this->kuvaus));
+        $query->execute(array('name' => $this->name, 'kesto' => $this->kesto, 'soveltuvuus' => json_encode($this->soveltuvuus), 'kuvaus' => $this->kuvaus));
         // Haetaan kyselyn tuottama rivi, joka sisältää lisätyn rivin id-sarakkeen arvon
         $row = $query->fetch();
         // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
@@ -86,15 +104,16 @@ class Treeni extends BaseModel {
 
     public function update($voimalaji_idt) {
         $this->deleteVoimalaji();
-        foreach ($voimalaji_idt as $voimalaji_id) {
-            $this->addVoimalaji($voimalaji_id);
+        if ($voimalaji_idt != null) {
+            foreach ($voimalaji_idt as $voimalaji_id) {
+                $this->addVoimalaji($voimalaji_id);
 
-            //$query = DB::connection()->prepare('UPDATE VoimaTreeni SET (voimalaji_id, treeni_id) = (:voimalaji_id, :treeni_id) WHERE treeni_id = :id');
-            //$query->execute(array('voimalaji_id' => $voimalaji_id, 'treeni_id' => $this->id)); 
+                //$query = DB::connection()->prepare('UPDATE VoimaTreeni SET (voimalaji_id, treeni_id) = (:voimalaji_id, :treeni_id) WHERE treeni_id = :id');
+                //$query->execute(array('voimalaji_id' => $voimalaji_id, 'treeni_id' => $this->id)); 
+            }
         }
-
         $query1 = DB::connection()->prepare('UPDATE Treeni SET (name, kesto, soveltuvuus, kuvaus) = (:name, :kesto, :soveltuvuus, :kuvaus) WHERE id = :id');
-        $query1->execute(array('id' => $this->id, 'name' => $this->name, 'kesto' => $this->kesto, 'soveltuvuus' => $this->soveltuvuus, 'kuvaus' => $this->kuvaus));
+        $query1->execute(array('id' => $this->id, 'name' => $this->name, 'kesto' => $this->kesto, 'soveltuvuus' => json_encode($this->soveltuvuus), 'kuvaus' => $this->kuvaus));
     }
 
     public function delete() {
@@ -133,4 +152,9 @@ class Treeni extends BaseModel {
         return $voimalajit;
     }
 
+    public function getSoveltuvuus() {
+        foreach ($this->soveltuvuus as $row) {
+            echo $row;
+        }
+    }
 }

@@ -6,6 +6,7 @@ class Voimalaji extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_string_length');
     }
 
     public static function all() {
@@ -64,9 +65,10 @@ class Voimalaji extends BaseModel {
         return $treenit;
     }
     
-    //public function getLiikkeet() {
-      //  
-//    }
+    public function update() {
+        $query = DB::connection()->prepare('UPDATE Voimalaji SET (name, kuvaus) = (:name, :kuvaus) WHERE id = :id');
+        $query->execute(array('id' => $this->id, 'name' => $this->name, 'kuvaus' => $this->kuvaus));
+    }
     
     
 }

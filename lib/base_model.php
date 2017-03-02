@@ -16,13 +16,14 @@ class BaseModel {
         }
     }
 
-    public function validate_string_length() {
+
+    public function validate_password() {
         $errors = array();
-        if ($this->name == '' || $this->name == null) {
-            $errors[] = 'Nimi ei saa olla tyhjä!';
+        if ($this->password == '' || $this->password == null) {
+            $errors[] = 'Salasana ei saa olla tyhjä!';
         }
-        if (strlen($this->name) < 3) {
-            $errors[] = 'Nimen tulee olla vähintään kolme merkkiä!';
+        if (strlen($this->password) < 6) {
+            $errors[] = 'Salasanan tulee olla vähintään 6 merkkiä pitkä.';
         }
         return $errors;
     }

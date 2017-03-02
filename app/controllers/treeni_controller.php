@@ -14,13 +14,15 @@ class TreeniController extends BaseController {
         if ($treeni != null) {
             $voimalajit = $treeni->getVoimalajit();
         }
-        View::make('treeni/treeni.html', array('treeni' => $treeni, 'voimalajit' => $voimalajit));
+        $soveltuvuus = json_decode($treeni->soveltuvuus);
+
+        View::make('treeni/treeni.html', array('treeni' => $treeni, 'voimalajit' => $voimalajit, 'soveltuvuus' => $soveltuvuus));
     }
 
     public static function create() {
         self::check_logged_in();
         $voimalajit = Voimalaji::all();
-        
+
         //Kint::dump($voimalajit);
         View::make('treeni/new.html', array('voimalajit' => $voimalajit));
     }
@@ -35,19 +37,23 @@ class TreeniController extends BaseController {
             'kuvaus' => $params['kuvaus']
         );
         $treeni = new Treeni($attributes);
+        $voimalajit = Voimalaji::all();
         $errors = $treeni->errors();
-
         if (count($errors) == 0) {
             $treeni->save();
-            $voimalaji_idt = $_POST["voimalajit"];
-            $N = count($voimalaji_idt);
-            for ($i = 0; $i < $N; $i++) {
-                $v = $voimalaji_idt[$i];
-                $treeni->addVoimalaji($v);
+            if (empty($_POST["voimalajit"])) {
+                Redirect::to('/treeni/' . $treeni->id, array('message' => 'Treeni on lisätty arkistoon!'));
+            } else {
+                $voimalaji_idt = $_POST["voimalajit"];
+                $N = count($voimalaji_idt);
+                for ($i = 0; $i < $N; $i++) {
+                    $v = $voimalaji_idt[$i];
+                    $treeni->addVoimalaji($v);
+                }
+                Redirect::to('/treeni/' . $treeni->id, array('message' => 'Treeni on lisätty arkistoon!'));
             }
-            Redirect::to('/treeni/' . $treeni->id, array('message' => 'Treeni on lisätty arkistoon!'));
         } else {
-            View::make('treeni/new.html', array('errors' => $errors, 'params' => $params));
+            View::make('treeni/new.html', array('errors' => $errors, 'params' => $params, 'voimalajit' => $voimalajit));
         }
     }
 
@@ -55,31 +61,49 @@ class TreeniController extends BaseController {
         self::check_logged_in();
         $treeni = Treeni::findId($id);
         $voimalajit = Voimalaji::all();
-        View::make('treeni/edit.html', array('attributes' => $treeni, 'voimalajit' => $voimalajit));
+        $soveltuvuus = json_decode($treeni->soveltuvuus);
+        View::make('treeni/edit.html', array('attributes' => $treeni, 'voimalajit' => $voimalajit, 'soveltuvuus' => $soveltuvuus));
     }
 
     public static function update($id) {
         self::check_logged_in();
         $params = $_POST;
-
+        
+        $soveltuvuus = null;
+        if (array_key_exists('soveltuvuus', $params)) {
+           $soveltuvuus = $params['soveltuvuus'];
+        }
         $attributes = array(
             'id' => $id,
             'name' => $params['name'],
             'kesto' => $params['kesto'],
-            'soveltuvuus' => $params['soveltuvuus'],
-            'kuvaus' => $params['kuvaus']
+            'soveltuvuus' => $soveltuvuus
         );
 
         $treeni = new Treeni($attributes);
-        $voimalaji_idt = $_POST["voimalajit"];
+        if (!empty($_POST["voimalajit"])) {
+            $voimalaji_idt = $_POST["voimalajit"];
+        }
         //$voimalaji_deletet = $_POST["voimalajitD"];
-        //$errors = $treeni->errors();
-        //if (count($errors) > 0) {
-        //View::make('treeni/edit.html', array('errors' => $errors, 'attributes' => $attributes));
-        //} else {
-        $treeni->update($voimalaji_idt);
-        Redirect::to('/treeni/' . $treeni->id, array('message' => 'Treeniä on muokattu onnistuneesti!'));
-        //}
+        $nameError = $treeni->validate_name();
+        $soveltuvuusError = $treeni->validate_soveltuvuus();
+        Kint::dump($nameError);
+        Kint::dump($soveltuvuusError);
+        $errors = array_merge($nameError, $soveltuvuusError);
+
+
+        if (count($errors) > 0) {
+            View::make('treeni/edit.html', array('errors' => $errors, 'attributes' => $attributes));
+        } else {
+            if (!empty($_POST["voimalajit"])) {
+                $treeni->update($voimalaji_idt);
+            } else {
+                $voimalaji_idt = null;
+                $treeni->update($voimalaji_idt);
+            }
+
+            Redirect::to('/treeni/' . $treeni->id, array('message' => 'Treeniä on muokattu onnistuneesti!'));
+        }
     }
 
     public static function destroy($id) {

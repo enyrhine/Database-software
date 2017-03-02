@@ -21,6 +21,18 @@ $routes->post('/logout', function() {
     UserController::logout();
 });
 
+$routes->get('/user/:id', function($id) {
+    UserController::show($id);
+});
+
+$routes->get('/user/:id/edit', function($id) {
+    UserController::edit($id);
+});
+
+$routes->post('/user/:id/edit', function($id) {
+    UserController::update($id);
+});
+
 $routes->get('/treenit', function() {
     TreeniController::index();
 });
