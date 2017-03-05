@@ -17,16 +17,7 @@ class BaseModel {
     }
 
 
-    public function validate_password() {
-        $errors = array();
-        if ($this->password == '' || $this->password == null) {
-            $errors[] = 'Salasana ei saa olla tyhjä!';
-        }
-        if (strlen($this->password) < 6) {
-            $errors[] = 'Salasanan tulee olla vähintään 6 merkkiä pitkä.';
-        }
-        return $errors;
-    }
+    
 
     public function errors() {
         // Lisätään $errors muuttujaan kaikki virheilmoitukset taulukkona

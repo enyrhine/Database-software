@@ -21,6 +21,10 @@ $routes->post('/logout', function() {
     UserController::logout();
 });
 
+$routes->get('/show_all', function() {
+    UserController::index();
+});
+
 $routes->get('/user/:id', function($id) {
     UserController::show($id);
 });
@@ -31,6 +35,18 @@ $routes->get('/user/:id/edit', function($id) {
 
 $routes->post('/user/:id/edit', function($id) {
     UserController::update($id);
+});
+
+$routes->get('/user/rekisterointi', function() {
+    RekisterointiController::show();
+});
+
+$routes->post('/user/rekisterointi', function() {
+    UserController::save();
+});
+
+$routes->post('/user/:id/destroy', function($id) {
+    UserController::destroy($id);
 });
 
 $routes->get('/treenit', function() {
@@ -87,7 +103,7 @@ $routes->get('/esittely', function() {
 });
 
 $routes->get('/rekisterointi', function() {
-    RekisterointiController::index();
+    RekisterointiController::show();
 });
 
 $routes->get('/voimalaji', function() {

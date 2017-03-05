@@ -17,8 +17,12 @@
     </div>
     <div class="row">
         <div class="col-xs-12 text-center">
+            {% if user_logged_in %}
+            <a href="{{base_path}}/user/{{user_logged_in.id}}" class="btn btn-default" role="button">Oma sivu</a>
+            {% else %}
             <a href="login" class="btn btn-default" role="button">Kirjaudu</a>
             <a href="rekisterointi" class="btn btn-danger" role="button">Rekisteröidy</a>
+            {% endif %}
         </div>
     </div>
     <div class="row">

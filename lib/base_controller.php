@@ -17,5 +17,11 @@ class BaseController {
             Redirect::to('/login', array('message' => 'Kirjaudu ensin sisään!'));
         }
     }
+    
+    public static function check_admin() {
+        $id = $_SESSION['user'];
+        return User::checkRooli($id);
+        
+    }
 
 }

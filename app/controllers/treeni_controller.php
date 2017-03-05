@@ -30,15 +30,21 @@ class TreeniController extends BaseController {
     public static function store() {
         self::check_logged_in();
         $params = $_POST;
+        
+        $soveltuvuus = null;
+        if (array_key_exists('soveltuvuus', $params)) {
+           $soveltuvuus = $params['soveltuvuus'];
+        }
+        
         $attributes = array(
             'name' => $params['name'],
             'kesto' => $params['kesto'],
-            'soveltuvuus' => $params['soveltuvuus'],
+            'soveltuvuus' => $soveltuvuus,
             'kuvaus' => $params['kuvaus']
         );
         $treeni = new Treeni($attributes);
         $voimalajit = Voimalaji::all();
-        $errors = $treeni->errors();
+        $errors = $treeni->validate_name();
         if (count($errors) == 0) {
             $treeni->save();
             if (empty($_POST["voimalajit"])) {
@@ -77,7 +83,8 @@ class TreeniController extends BaseController {
             'id' => $id,
             'name' => $params['name'],
             'kesto' => $params['kesto'],
-            'soveltuvuus' => $soveltuvuus
+            'soveltuvuus' => $soveltuvuus,
+            'kuvaus' => $params['kuvaus']
         );
 
         $treeni = new Treeni($attributes);
@@ -87,8 +94,8 @@ class TreeniController extends BaseController {
         //$voimalaji_deletet = $_POST["voimalajitD"];
         $nameError = $treeni->validate_name();
         $soveltuvuusError = $treeni->validate_soveltuvuus();
-        Kint::dump($nameError);
-        Kint::dump($soveltuvuusError);
+        //Kint::dump($nameError);
+        //Kint::dump($soveltuvuusError);
         $errors = array_merge($nameError, $soveltuvuusError);
 
 

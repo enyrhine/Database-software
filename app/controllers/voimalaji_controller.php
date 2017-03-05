@@ -39,7 +39,7 @@ class VoimalajiController extends BaseController {
         );
 
         $voimalaji = new Voimalaji($attributes);
-        $errors = $voimalaji->errors();
+        $errors = $voimalaji->validate_name();
         if (count($errors) > 0) {
         View::make('voimalaji/edit.html', array('errors' => $errors, 'attributes' => $attributes));
         } else {

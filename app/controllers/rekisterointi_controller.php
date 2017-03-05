@@ -4,9 +4,9 @@
 
     
 
-    public static function index(){
+    public static function show(){
       // Testaa koodiasi täällä
-      View::make('suunnitelmat/rekisterointi.html');
+      View::make('user/rekisterointi.html');
     }
     
   }

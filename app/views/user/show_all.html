@@ -1,0 +1,24 @@
+{% import "macros/forms.html" as forms %}
+{% extends "base.html" %}
+{% block content %}
+<div class="container taustabox">
+
+    <h1><span>Käyttäjät: </span></h1>
+     
+    <h1> </h1> 
+    <table>
+        {% for user in users %}
+        <tr>
+            
+        <button class="btn btn-default"><a href="{{base_path}}/user/{{user.id}}">{{user.name}}</button>
+        
+        <p> </p>
+
+        </tr>
+        {% endfor %}
+
+    </table>
+   
+    
+</div>
+{% endblock %}

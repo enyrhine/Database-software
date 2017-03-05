@@ -70,6 +70,17 @@ class Voimalaji extends BaseModel {
         $query->execute(array('id' => $this->id, 'name' => $this->name, 'kuvaus' => $this->kuvaus));
     }
     
+    public function validate_name() {
+        $errors = array();
+        if ($this->name == '' || $this->name == null) {
+            $errors[] = 'Nimi ei saa olla tyhjä!';
+        }
+        if (strlen($this->name) < 3) {
+            $errors[] = 'Nimen tulee olla vähintään kolme merkkiä!';
+        }
+        return $errors;
+    }
+    
     
 }
 
