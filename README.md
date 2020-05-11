@@ -1,7 +1,6 @@
 # Tietokantasovelluksen esittelysivu
 
-Yleisiä linkkejä:
-
+<!--- Yleisiä linkkejä:
 * [Linkki sovellukseeni](http://enyrhine.users.cs.helsinki.fi/tsoha/)
 * [Linkki dokumentaatiooni](https://github.com/enyrhine/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 * [Linkki sovelluksen etusivulle](http://enyrhine.users.cs.helsinki.fi/tsoha/etusivu)
@@ -11,8 +10,7 @@ Yleisiä linkkejä:
 * [Linkki sovelluksen treenisivulle](http://enyrhine.users.cs.helsinki.fi/tsoha/treeni)
 * [Linkki sovelluksen liikesivulle](http://enyrhine.users.cs.helsinki.fi/tsoha/liike)
 * [Linkki sovelluksen treeninlisäys -sivulle ](http://enyrhine.users.cs.helsinki.fi/tsoha//treeni/new)
-
-Testikäyttäjä tunnus: Elsa, salasana: Elsa123
+Testikäyttäjä tunnus: Elsa, salasana: Elsa123--->
 
 
 ## Fysiikkatreeniarkisto
